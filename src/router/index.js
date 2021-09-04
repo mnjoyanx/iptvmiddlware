@@ -59,8 +59,8 @@ let routes = [
     component: () => import("../views/RTL.vue"),
   },
   {
-    path: "/Profile",
-    name: "Profile",
+    path: "/Profile/:id",
+    name: "profile",
     layout: "dashboard",
     meta: {
       layoutClass: "layout-profile",

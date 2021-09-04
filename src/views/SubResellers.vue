@@ -17,6 +17,7 @@
           @selectLimit="selectLimit"
           @dateFilter="dateFilter"
           @page="page"
+          @sort="sortHandler"
         ></CardAuthorTable>
         <!-- / Authors Table Card -->
       </a-col>
@@ -39,6 +40,10 @@ export default {
   },
 
   methods: {
+    sortHandler(val) {
+      this.sort(val);
+    },
+
     page(page) {
       this.paginationHandler(page);
     },

@@ -37,16 +37,16 @@
     <hr class="my-25" />
     <a-descriptions title="Oliver Liam" :column="1">
       <a-descriptions-item label="Full Name">
-        {{ user.full_name }}
+        {{ userInfo.surname }}
+      </a-descriptions-item>
+      <a-descriptions-item label="Username">
+        {{ userInfo.username }}
       </a-descriptions-item>
       <a-descriptions-item label="Mobile">
-        ({{ user.country_calling_code }}) {{ user.phone }}
+        ({{ userInfo.phone }}
       </a-descriptions-item>
       <a-descriptions-item label="Email">
-        {{ user.email }}
-      </a-descriptions-item>
-      <a-descriptions-item label="Location">
-        {{ user.country }}
+        {{ userInfo.balance }}
       </a-descriptions-item>
       <a-descriptions-item label="Social">
         <a href="#" class="mx-5 px-5">
@@ -72,7 +72,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      user: "me/getUser",
+      userInfo: "userInfo/getUserInfo",
     }),
   },
 };

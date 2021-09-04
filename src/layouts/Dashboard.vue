@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Dashboard Layout -->
-    <template v-if="!isLoading">
+    <template>
       <a-layout
         class="layout-dashboard"
         id="layout-dashboard"
@@ -88,8 +88,8 @@
       </a-layout>
       <!-- / Dashboard Layout -->
     </template>
-    <template v-else>
-      <spinner />
+    <template>
+      <!-- <spinner /> -->
     </template>
   </div>
 </template>

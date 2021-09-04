@@ -38,10 +38,37 @@
                 <th
                   scope="col"
                   class="px-6 py-3  text-xs text-center font-medium text-gray-primary uppercase tracking-wider"
+                  v-for="item in items"
+                  :key="item.id"
                 >
-                  Id
+                  <span
+                    @click="sortHandler(item)"
+                    class="cursor-pointer select-none"
+                  >
+                    {{ item.title | removeUnderscores }}
+                  </span>
+                  <span
+                    v-if="
+                      isSorted &&
+                        sortType === `${item.title},asc` &&
+                        item.id == defaultId
+                    "
+                  >
+                    <a-icon type="sort-ascending" />
+                  </span>
+                  <span>
+                    <a-icon
+                      type="sort-descending"
+                      v-if="
+                        isSorted &&
+                          sortType === `${item.title},desc` &&
+                          item.id == defaultId
+                      "
+                    />
+                  </span>
                 </th>
-                <th
+
+                <!-- <th
                   scope="col"
                   class="px-6 py-3 text-center text-xs font-medium text-gray-primary uppercase tracking-wider"
                 >
@@ -77,7 +104,7 @@
                   class="px-6 py-3 text-center text-xs font-medium text-gray-primary uppercase tracking-wider"
                 >
                   Action
-                </th>
+                </th> -->
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -189,7 +216,47 @@ export default {
     },
   },
 
+  data() {
+    return {
+      items: [
+        { id: 0, title: "id" },
+        { id: 1, title: "full_name" },
+        { id: 2, title: "phone" },
+        { id: 3, title: "email" },
+        { id: 4, title: "country" },
+        { id: 5, title: "status" },
+        { id: 6, title: "action" },
+      ],
+
+      sortType: "id,asc",
+      isSorted: false,
+      defaultId: 0,
+    };
+  },
+
   methods: {
+    sortHandler(item) {
+      this.defaultId = item.id;
+      const sortName = item.title;
+      item.title.replaceAll(" ", "");
+      console.log(item.title, "replace");
+
+      if (this.sortType === `${sortName},asc`) {
+        console.log("iffff");
+        this.isSorted = !this.isSorted;
+        this.sortType = `${sortName},${this.isSorted ? "desc" : "asc"}`;
+        this.$emit("sort", this.sortType);
+      } else if (this.sortType !== `${sortName},desc`) {
+        this.isSorted = true;
+        this.sortType = `${sortName},desc`;
+        this.$emit("sort", this.sortType);
+      } else {
+        this.isSorted = true;
+        this.sortType = `${sortName},asc`;
+        this.$emit("sort", this.sortType);
+      }
+    },
+
     paginationHandler(page) {
       this.$emit("page", page);
     },

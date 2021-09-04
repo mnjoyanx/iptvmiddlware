@@ -93,5 +93,18 @@ export const filters = (url) => ({
         })
         .catch((err) => {});
     },
+
+    sort(val) {
+      axios
+        .get(url, { params: { ...oldParams, sort: val } })
+        .then((res) => {
+          this.data = res.data.message.rows;
+          this.info = {
+            ...res.data.message.info,
+            count: res.data.message.count,
+          };
+        })
+        .catch((err) => {});
+    },
   },
 });
